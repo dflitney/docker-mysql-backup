@@ -9,13 +9,15 @@ set -e
 MODE=${MODE:-BACKUP}
 TARBALL=${TARBALL:-}
  
+DAY_OF_WEEK=$(date '+%A')
+
 case "${MODE^^}" in
     'BACKUP')
         if [[ "${TARBALL^^}" != "" ]]
         then
             OPTIONS="--outputdir=${TARBALL}"
         else
-            OPTIONS=${OPTIONS:--c}
+            OPTIONS="${OPTIONS:--c} -o export-${DAY_OF_WEEK^^}"
         fi
         ;;
     'RESTORE')
@@ -123,8 +125,10 @@ then
     echo "===> Starting backup..."
     if [[ "${TARBALL^^}" != "" ]]
     then
+        echo Running exec su -pc "mydumper ${CLI_OPTIONS} && tar -czvf ${TARBALL}.gz ${TARBALL}" ${USER}
         exec su -pc "mydumper ${CLI_OPTIONS} && tar -czvf ${TARBALL}.gz ${TARBALL}" ${USER}
     else
+        echo Running exec su -pc "mydumper ${CLI_OPTIONS}" ${USER}
         exec su -pc "mydumper ${CLI_OPTIONS}" ${USER}
     fi
 
