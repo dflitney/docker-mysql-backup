@@ -20,6 +20,9 @@ case "${MODE^^}" in
         ;;
     'RESTORE')
         OPTIONS=${OPTIONS:--o}
+        echo 'WARNING: Automatically restoring database from backup.... is not supported.' >&2
+        echo 'You will need to manually use the backups on disk to do this.' >&2
+	exit 255
         ;;
     *)
         echo 'ERROR: Please set MODE environment variable to "BACKUP" or "RESTORE"' >&2
