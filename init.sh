@@ -61,13 +61,13 @@ echo
 echo "CONTAINER SETTINGS"
 echo "=================="
 echo
-echo "  Address:   ${!DB_ADDR}"
-echo "  Port:      ${!DB_PORT}"
+echo "  Address:   ${DB_ADDR}"
+echo "  Port:      ${DB_PORT}"
 echo
 
-if [[ -n "${!DB_NAME}" ]]
+if [[ -n "${DB_NAME}" ]]
 then
-    echo "  Database:  ${!DB_NAME}"
+    echo "  Database:  ${DB_NAME}"
     echo
 fi
 
@@ -85,11 +85,11 @@ umask ${UMASK}
 #
 #
 
-CLI_OPTIONS="-v 3 -h ${!DB_ADDR} -P ${!DB_PORT} -u root -p ${!DB_PASS}" 
+CLI_OPTIONS="-v 3 -h ${DB_ADDR} -P ${DB_PORT} -u root -p ${DB_PASS}" 
 
-if [[ -n "${!DB_NAME}" ]]
+if [[ -n "${DB_NAME}" ]]
 then
-    CLI_OPTIONS+=" -B ${!DB_NAME}"
+    CLI_OPTIONS+=" -B ${DB_NAME}"
 fi
 
 CLI_OPTIONS+=" ${OPTIONS}"
