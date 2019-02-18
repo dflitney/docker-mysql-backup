@@ -53,25 +53,13 @@ echo
 # Display the container informations on standard out.
 #
 
-CONTAINER=$(export | sed -nr "/ENV_MYSQL_ROOT_PASSWORD/{s/^.+ -x (.+)_ENV.+/\1/p;q}")
-
-if [[ -z "${CONTAINER}" ]]
-then
-    echo "ERROR: Couldn't find linked MySQL container." >&2
-    echo >&2
-    echo "Please link a MySQL or MariaDB container to the backup container and try again" >&2
-    exit 1
-fi
-
-DB_PORT=$(export | sed -nr "/-x ${CONTAINER}_PORT_[[:digit:]]+_TCP_PORT/{s/^.+ -x (.+)=.+/\1/p}")
-DB_ADDR="${CONTAINER}_PORT_${!DB_PORT}_TCP_ADDR"
-DB_NAME="${CONTAINER}_ENV_MYSQL_DATABASE"
-DB_PASS="${CONTAINER}_ENV_MYSQL_ROOT_PASSWORD"
+#DB_PORT=$(export | sed -nr "/-x ${CONTAINER}_PORT_[[:digit:]]+_TCP_PORT/{s/^.+ -x (.+)=.+/\1/p}")
+#DB_ADDR="${CONTAINER}_PORT_${!DB_PORT}_TCP_ADDR"
+#DB_NAME="${CONTAINER}_ENV_MYSQL_DATABASE"
+#DB_PASS="${CONTAINER}_ENV_MYSQL_ROOT_PASSWORD"
 
 echo "CONTAINER SETTINGS"
 echo "=================="
-echo
-echo "  Container: ${CONTAINER}"
 echo
 echo "  Address:   ${!DB_ADDR}"
 echo "  Port:      ${!DB_PORT}"
